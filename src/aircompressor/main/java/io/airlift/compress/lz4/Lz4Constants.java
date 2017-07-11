@@ -1,5 +1,3 @@
-package net.jpountz.lz4;
-
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,13 +11,16 @@ package net.jpountz.lz4;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.compress.lz4;
 
-/**
- * @deprecated Use {@link LZ4FastDecompressor} instead.
- */
-@Deprecated
-public interface LZ4Decompressor {
+final class Lz4Constants
+{
+    public static final int LAST_LITERAL_SIZE = 5;
+    public static final int MIN_MATCH = 4;
 
-  int decompress(byte[] src, int srcOff, byte[] dest, int destOff, int destLen);
+    public static final int SIZE_OF_SHORT = 2;
+    public static final int SIZE_OF_INT = 4;
+    public static final int SIZE_OF_LONG = 8;
 
+    private Lz4Constants() {}
 }

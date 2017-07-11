@@ -1,5 +1,3 @@
-package net.jpountz.lz4;
-
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +11,18 @@ package net.jpountz.lz4;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.compress;
 
-/**
- * LZ4 compression or decompression error.
- */
-public class LZ4Exception extends RuntimeException {
+import java.nio.ByteBuffer;
 
-  private static final long serialVersionUID = 1L;
+public interface Compressor
+{
+    int maxCompressedLength(int uncompressedSize);
 
-  public LZ4Exception(String msg, Throwable t) {
-    super(msg, t);
-  }
+    /**
+     * @return number of bytes written to the output
+     */
+    int compress(byte[] input, int inputOffset, int inputLength, byte[] output, int outputOffset, int maxOutputLength);
 
-  public LZ4Exception(String msg) {
-    super(msg);
-  }
-
-  public LZ4Exception() {
-    super();
-  }
-
+    void compress(ByteBuffer input, ByteBuffer output);
 }

@@ -1,5 +1,3 @@
-package net.jpountz.util;
-
 /*
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +11,26 @@ package net.jpountz.util;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package io.airlift.compress;
 
-import java.nio.ByteOrder;
+public class MalformedInputException
+        extends RuntimeException
+{
+    private final long offset;
 
-public enum Utils {
-  ;
+    public MalformedInputException(long offset)
+    {
+        this(offset, "Malformed input");
+    }
 
-  public static final ByteOrder NATIVE_BYTE_ORDER = ByteOrder.nativeOrder();
+    public MalformedInputException(long offset, String reason)
+    {
+        super(reason + ": offset=" + offset);
+        this.offset = offset;
+    }
 
-  private static final boolean unalignedAccessAllowed;
-  static {
-    String arch = System.getProperty("os.arch");
-    unalignedAccessAllowed = arch.equals("i386") || arch.equals("x86")
-            || arch.equals("amd64") || arch.equals("x86_64")
-            || arch.equals("aarch64") || arch.equals("ppc64le");
-  }
-
-  public static boolean isUnalignedAccessAllowed() {
-    return unalignedAccessAllowed;
-  }
-
+    public long getOffset()
+    {
+        return offset;
+    }
 }

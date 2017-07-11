@@ -9,8 +9,6 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
-import net.jpountz.lz4.LZ4Factory;
-import net.jpountz.lz4.LZ4SafeDecompressor;
 
 /**
  *
@@ -428,28 +426,6 @@ public abstract class LImport {
 	return new LShrinkArray(ByteBuffer.wrap(uncompressedByteData));
     }
     
-    public LShrinkArray correctForCompressionLZ() throws DataFormatException {
-
-	int uncompressedSize = Ln.arrayToInt(extractInts(4));
-
-	byte[] compressedByteData = getAllBytes();
-
-        LZ4Factory factory = LZ4Factory.fastestInstance();
-        LZ4SafeDecompressor decompressor2 = factory.safeDecompressor();
-	byte[] uncompressedByteData = new byte[uncompressedSize];
-        int decompressedLength2 = decompressor2.decompress(compressedByteData, 0, compressedByteData.length, uncompressedByteData, 0, uncompressedSize);
-
-        /*
-	//Uncompress
-	Inflater decompresser = LGlobal.getInflater();
-	decompresser.setInput(compressedByteData, 0, available());
-	byte[] uncompressedByteData = new byte[uncompressedSize];
-	decompresser.inflate(uncompressedByteData);
-	decompresser.reset();*/
-
-	return new LShrinkArray(ByteBuffer.wrap(uncompressedByteData));
-    }
-
     /**
      * Reads in the desired bytes and converts them to a int (little endian
      * assumed). Sign extends if less than 4 bytes were read and the number

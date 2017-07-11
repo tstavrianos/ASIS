@@ -18,7 +18,7 @@ public class SPGlobal {
     static String pathToDebug = "SkyProcDebug/";
     static Mod globalPatchOut;
     static SPLogger log;
-    static boolean logMods = false;
+    static boolean logMods = true;
     static SPDatabase globalDatabase = new SPDatabase();
     static boolean testing = false;
     static boolean streamMode = true;
