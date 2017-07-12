@@ -218,9 +218,6 @@ public class BSA {
                 }
                 aSize--;
             }
-            SPGlobal.logSpecial(LogTypes.BSA, header, filePath);
-            SPGlobal.logSpecial(LogTypes.BSA, header, filePath1);
-            SPGlobal.logSpecial(LogTypes.BSA, header, "" + isCompressed(ref));
             if (isCompressed(ref))
             {
                 int uncompressedSize = Ln.arrayToInt(in.extractInts(4));
@@ -229,10 +226,8 @@ public class BSA {
 
                 Lz4Decompressor decompressor2 = new Lz4Decompressor();
                 byte[] uncompressedByteData = new byte[uncompressedSize];
-                SPGlobal.logSpecial(LogTypes.BSA, header, "" + aSize + " - " + uncompressedSize);
 
                 int decompressedLength2 = decompressor2.decompress(compressedByteData, 0, aSize, uncompressedByteData, 0, uncompressedSize);
-
                 return new LShrinkArray(ByteBuffer.wrap(uncompressedByteData));
             }
             return new LShrinkArray(in.extract(0, aSize));

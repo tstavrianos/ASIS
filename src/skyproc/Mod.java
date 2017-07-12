@@ -430,6 +430,32 @@ public class Mod implements Comparable, Iterable<GRUP> {
                 }
                 return;
             }
+            else
+            {
+                //check for plugin loaded BSA has strings file
+                for (BSA theBSA : BSA.getPluginBSAs()) 
+                {
+                    theBSA.loadFolders();
+                    if (!theBSA.hasFile(stringPath)) {
+                        continue;
+                    }
+                    LByteChannel stream = new LByteChannel();
+                    stream.openStream(theBSA.getFile(stringPath));
+                    streams.put(file, stream);
+                    return;
+                }
+                // check for resource loaded BSA with strings file
+                for (BSA theBSA : BSA.getResourceBSAa()) {
+                    theBSA.loadFolders();
+                    if (!theBSA.hasFile(stringPath)) {
+                        continue;
+                    }
+                    LByteChannel stream = new LByteChannel();
+                    stream.openStream(theBSA.getFile(stringPath));
+                    streams.put(file, stream);
+                    return;
+                }
+            }
 
             if (SPGlobal.logMods) {
                 SPGlobal.logMod(this, getName(), "No strings file for " + file);
