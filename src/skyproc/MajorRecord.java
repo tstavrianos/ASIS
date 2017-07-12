@@ -33,7 +33,7 @@ public abstract class MajorRecord extends Record implements Serializable {
     private FormID ID = new FormID();
     LFlags majorFlags = new LFlags(4);
     byte[] revision = new byte[4];
-    int formVersion = 0x28;
+    int formVersion = 0x2C; //Form Version = 44
     byte[] version = new byte[2];
     Mod srcMod;
 
